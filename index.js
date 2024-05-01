@@ -87,6 +87,13 @@ reset.onclick = () => {
   output.innerText = "输出: 重置成功";
 };
 
+function downloadImage(name, type) {
+  const link = document.createElement("a");
+  link.download = name;
+  link.href = cropped.toDataURL(type);
+  link.click();
+}
+
 download.onclick = () => {
   if (!imageLoaded) {
     output.innerText = "输出: 请先选择原始图片";
@@ -96,9 +103,6 @@ download.onclick = () => {
     output.innerText = "输出: 请先裁剪图片";
     return;
   }
-  const link = document.createElement("a");
-  link.download = "result.png";
-  link.href = cropped.toDataURL("image/png");
-  link.click();
+  downloadImage("result.png", "image/png");
   output.innerText = "输出: 下载成功";
 };
