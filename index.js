@@ -9,6 +9,8 @@ const reset = document.getElementById("reset");
 const output = document.getElementById("output");
 const cropped = document.getElementById("cropped");
 const download = document.getElementById("download");
+const download_webp = document.getElementById("download_webp");
+const download_jpeg = document.getElementById("download_jpeg");
 
 const originContext = origin.getContext("2d");
 const croppedContext = cropped.getContext("2d");
@@ -94,7 +96,7 @@ function downloadImage(name, type) {
   link.click();
 }
 
-download.onclick = () => {
+function downloadImageCallback(name, type) {
   if (!imageLoaded) {
     output.innerText = "输出: 请先选择原始图片";
     return;
@@ -103,6 +105,18 @@ download.onclick = () => {
     output.innerText = "输出: 请先裁剪图片";
     return;
   }
-  downloadImage("result.png", "image/png");
+  downloadImage(name, type);
   output.innerText = "输出: 下载成功";
+}
+
+download.onclick = () => {
+  downloadImageCallback("result.png", "image/png");
+};
+
+download_webp.onclick = () => {
+  downloadImageCallback("result.webp", "image/webp");
+};
+
+download_jpeg.onclick = () => {
+  downloadImageCallback("result.jpeg", "image/jpeg");
 };
