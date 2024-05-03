@@ -97,6 +97,8 @@ function downloadImage(name, type) {
   link.click();
 }
 
+file_name.value = "result";
+
 function downloadImageCallback(name, type) {
   if (!imageLoaded) {
     output.innerText = "输出: 请先选择原始图片";
@@ -106,18 +108,22 @@ function downloadImageCallback(name, type) {
     output.innerText = "输出: 请先裁剪图片";
     return;
   }
+  if (file_name.value === "") {
+    output.innerText = "输出: 文件名不能为空";
+    return;
+  }
   downloadImage(name, type);
   output.innerText = "输出: 下载成功";
 }
 
 download.onclick = () => {
-  downloadImageCallback("result.png", "image/png");
+  downloadImageCallback(file_name.value + ".png", "image/png");
 };
 
 download_webp.onclick = () => {
-  downloadImageCallback("result.webp", "image/webp");
+  downloadImageCallback(file_name.value + ".webp", "image/webp");
 };
 
 download_jpeg.onclick = () => {
-  downloadImageCallback("result.jpeg", "image/jpeg");
+  downloadImageCallback(file_name.value + ".jpeg", "image/jpeg");
 };
