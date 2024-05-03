@@ -8,6 +8,7 @@ const crop = document.getElementById("crop");
 const reset = document.getElementById("reset");
 const output = document.getElementById("output");
 const cropped = document.getElementById("cropped");
+const file_name = document.getElementById("file_name");
 const download = document.getElementById("download");
 const download_webp = document.getElementById("download_webp");
 const download_jpeg = document.getElementById("download_jpeg");
