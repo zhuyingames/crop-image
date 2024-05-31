@@ -8,6 +8,7 @@ const y = document.getElementById("y");
 const w = document.getElementById("w");
 const h = document.getElementById("h");
 const text_group = document.getElementById("text_group");
+const json = document.getElementById("json");
 const crop = document.getElementById("crop");
 const reset = document.getElementById("reset");
 const output = document.getElementById("output");
@@ -22,6 +23,10 @@ const croppedContext = cropped.getContext("2d");
 
 let imageLoaded = false;
 let imageCropped = false;
+
+function info(msg) {
+  output.innerText = "输出: " + msg;
+}
 
 file.addEventListener("change", (event) => {
   const fileObject = event.target.files[0];
@@ -48,38 +53,83 @@ crop.onclick = () => {
     output.innerText = "输出: 请先选择原始图片";
     return;
   }
-  const posX = Math.floor(parseInt(x.value));
-  const posY = Math.floor(parseInt(y.value));
-  const width = Math.floor(parseInt(w.value));
-  const height = Math.floor(parseInt(h.value));
-  if (isNaN(posX)) {
-    output.innerText = "输出: x为无效数字";
-    return;
-  } else if (isNaN(posY)) {
-    output.innerText = "输出: y为无效数字";
-    return;
-  } else if (isNaN(width)) {
-    output.innerText = "输出: w为无效数字";
-    return;
-  } else if (isNaN(height)) {
-    output.innerText = "输出: h为无效数字";
-    return;
+  if (radioChoose === 1) {
+    const posX = Math.floor(parseInt(x.value));
+    const posY = Math.floor(parseInt(y.value));
+    const width = Math.floor(parseInt(w.value));
+    const height = Math.floor(parseInt(h.value));
+    if (isNaN(posX)) {
+      output.innerText = "输出: x为无效数字";
+      return;
+    } else if (isNaN(posY)) {
+      output.innerText = "输出: y为无效数字";
+      return;
+    } else if (isNaN(width)) {
+      output.innerText = "输出: w为无效数字";
+      return;
+    } else if (isNaN(height)) {
+      output.innerText = "输出: h为无效数字";
+      return;
+    }
+    cropped.width = width;
+    cropped.height = height;
+    croppedContext.drawImage(
+      origin,
+      posX,
+      posY,
+      width,
+      height,
+      0,
+      0,
+      width,
+      height
+    );
+    output.innerText = "输出: 裁剪成功";
+    imageCropped = true;
+  } else if (radioChoose === 2) {
+    if (json.value === "") {
+      output.innerText = "输出: JSON输入框不能为空";
+      return;
+    }
+    try {
+      const obj = JSON.parse(json.value);
+      const posX = obj["x"];
+      const posY = obj["y"];
+      const width = obj["w"];
+      const height = obj["h"];
+      if (posX === undefined) {
+        info("字段x为空");
+        return;
+      }
+      if (posY === undefined) {
+        info("字段y为空");
+        return;
+      }
+      if (width === undefined) {
+        info("字段w为空");
+        return;
+      }
+      if (height === undefined) {
+        info("字段h为空");
+        return;
+      }
+      if (isNaN(posX)) {
+        output.innerText = "输出: x为无效数字";
+        return;
+      } else if (isNaN(posY)) {
+        output.innerText = "输出: y为无效数字";
+        return;
+      } else if (isNaN(width)) {
+        output.innerText = "输出: w为无效数字";
+        return;
+      } else if (isNaN(height)) {
+        output.innerText = "输出: h为无效数字";
+        return;
+      }
+    } catch (error) {
+      output.innerText = error;
+    }
   }
-  cropped.width = width;
-  cropped.height = height;
-  croppedContext.drawImage(
-    origin,
-    posX,
-    posY,
-    width,
-    height,
-    0,
-    0,
-    width,
-    height
-  );
-  output.innerText = "输出: 裁剪成功";
-  imageCropped = true;
 };
 
 reset.onclick = () => {
