@@ -101,31 +101,49 @@ crop.onclick = () => {
         info("字段x为空");
         return;
       }
+      if (isNaN(posX)) {
+        output.innerText = "输出: x为无效数字";
+        return;
+      }
       if (posY === undefined) {
         info("字段y为空");
+        return;
+      }
+      if (isNaN(posY)) {
+        output.innerText = "输出: y为无效数字";
         return;
       }
       if (width === undefined) {
         info("字段w为空");
         return;
       }
+      if (isNaN(width)) {
+        output.innerText = "输出: w为无效数字";
+        return;
+      }
       if (height === undefined) {
         info("字段h为空");
         return;
       }
-      if (isNaN(posX)) {
-        output.innerText = "输出: x为无效数字";
-        return;
-      } else if (isNaN(posY)) {
-        output.innerText = "输出: y为无效数字";
-        return;
-      } else if (isNaN(width)) {
-        output.innerText = "输出: w为无效数字";
-        return;
-      } else if (isNaN(height)) {
+      if (isNaN(height)) {
         output.innerText = "输出: h为无效数字";
         return;
       }
+      cropped.width = width;
+      cropped.height = height;
+      croppedContext.drawImage(
+        origin,
+        posX,
+        posY,
+        width,
+        height,
+        0,
+        0,
+        width,
+        height
+      );
+      output.innerText = "输出: 裁剪成功";
+      imageCropped = true;
     } catch (error) {
       output.innerText = error;
     }
@@ -137,11 +155,14 @@ reset.onclick = () => {
     output.innerText = "输出: 请先选择原始图片";
     return;
   }
-  x.value = String(0);
-  y.value = String(0);
-  w.value = origin.width;
-  h.value = origin.height;
-  output.innerText = "输出: 重置成功";
+  if (radioChoose === 1) {
+    x.value = String(0);
+    y.value = String(0);
+    w.value = origin.width;
+    h.value = origin.height;
+    output.innerText = "输出: 重置成功";
+  } else if (radioChoose === 2) {
+  }
 };
 
 function downloadImage(name, type) {
