@@ -39,6 +39,16 @@ file.addEventListener("change", (event) => {
       y.value = String(0);
       w.value = image.width;
       h.value = image.height;
+      json.value = JSON.stringify(
+        {
+          x: 0,
+          y: 0,
+          w: image.width,
+          h: image.height,
+        },
+        null,
+        2
+      );
       origin.width = image.width;
       origin.height = image.height;
       originContext.drawImage(image, 0, 0);
@@ -162,6 +172,17 @@ reset.onclick = () => {
     h.value = origin.height;
     output.innerText = "输出: 重置成功";
   } else if (radioChoose === 2) {
+    json.value = JSON.stringify(
+      {
+        x: 0,
+        y: 0,
+        w: origin.width,
+        h: origin.height,
+      },
+      null,
+      2
+    );
+    output.innerText = "输出: 重置成功";
   }
 };
 
