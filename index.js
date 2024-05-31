@@ -1,9 +1,13 @@
 const file = document.getElementById("file");
 const origin = document.getElementById("origin");
+const radio1 = document.getElementById("radio1");
+const radio2 = document.getElementById("radio2");
+const number_group = document.getElementById("number_group");
 const x = document.getElementById("x");
 const y = document.getElementById("y");
 const w = document.getElementById("w");
 const h = document.getElementById("h");
+const text_group = document.getElementById("text_group");
 const crop = document.getElementById("crop");
 const reset = document.getElementById("reset");
 const output = document.getElementById("output");
@@ -126,4 +130,17 @@ download_webp.onclick = () => {
 
 download_jpeg.onclick = () => {
   downloadImageCallback(file_name.value + ".jpeg", "image/jpeg");
+};
+
+number_group.style.display = "block";
+text_group.style.display = "none";
+
+radio1.onchange = () => {
+  number_group.style.display = "block";
+  text_group.style.display = "none";
+};
+
+radio2.onchange = () => {
+  number_group.style.display = "none";
+  text_group.style.display = "block";
 };
