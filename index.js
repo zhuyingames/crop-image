@@ -132,15 +132,18 @@ download_jpeg.onclick = () => {
   downloadImageCallback(file_name.value + ".jpeg", "image/jpeg");
 };
 
+let radioChoose = 1;
 number_group.style.display = "block";
 text_group.style.display = "none";
 
 radio1.onchange = () => {
+  radioChoose = 1;
   number_group.style.display = "block";
   text_group.style.display = "none";
 };
 
 radio2.onchange = () => {
+  radioChoose = 2;
   number_group.style.display = "none";
   text_group.style.display = "block";
 };
